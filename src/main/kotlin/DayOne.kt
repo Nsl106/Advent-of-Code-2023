@@ -13,7 +13,7 @@ object DayOne: BaseDay(1) {
     override fun printPartTwo(input: List<String>) {
         val textDigits = listOf("one", "two", "three", "four", "five", "six", "seven", "eight", "nine").mapIndexed { index, it -> it to index + 1 }
         val reversedTextDigits = textDigits.map { it.first.reversed() to it.second }
-        val numberDigits = listOf("1", "2", "3", "4", "5", "6", "7", "8", "9").mapIndexed { index, it -> it to index + 1 }
+        val numberDigits = (1..9).associateBy { it.toString() }
         val digitsMap = mutableMapOf<String, Int>()
         digitsMap.putAll(textDigits)
         digitsMap.putAll(numberDigits)
