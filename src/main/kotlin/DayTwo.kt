@@ -21,8 +21,7 @@ object DayTwo: BaseDay(2) {
 
     override fun printPartTwo(input: List<String>) {
         var sum = 0
-        line@ for (line in input) {
-            val id = line.substring(line.indexOf(" ") + 1, line.indexOf(":")).toInt()
+        for (line in input) {
             val data = line.substringAfter(": ").replace(";", ",")
             val maximums = mutableMapOf("red" to 0, "green" to 0, "blue" to 0)
             for (cube in data.split(", ")) {
