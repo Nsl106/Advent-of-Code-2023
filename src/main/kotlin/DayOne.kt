@@ -1,6 +1,5 @@
 object DayOne: BaseDay(1) {
-
-    override fun printPartOne(input: List<String>) {
+    override fun printPartOne() {
         var sum = 0
         input.forEach { line ->
             val digitOne = line.first { it.isDigit() }
@@ -10,7 +9,7 @@ object DayOne: BaseDay(1) {
         println(sum)
     }
 
-    override fun printPartTwo(input: List<String>) {
+    override fun printPartTwo() {
         val textDigits = listOf("one", "two", "three", "four", "five", "six", "seven", "eight", "nine").mapIndexed { index, it -> it to index + 1 }
         val reversedTextDigits = textDigits.map { it.first.reversed() to it.second }
         val numberDigits = (1..9).associateBy { it.toString() }

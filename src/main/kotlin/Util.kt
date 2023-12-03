@@ -1,9 +1,7 @@
-import kotlin.io.path.Path
-import kotlin.io.path.readLines
-
-fun getInput(day: Int): List<String> = Path("src/main/resources/inputs/$day").readLines()
+import java.io.File
 
 abstract class BaseDay(val day: Int) {
-    abstract fun printPartOne(input: List<String>)
-    abstract fun printPartTwo(input: List<String>)
+    protected val input by lazy { File(javaClass.getResource("inputs/$day")?.toURI() ?: error("Missing input for day $day")).readLines() }
+    abstract fun printPartOne()
+    abstract fun printPartTwo()
 }

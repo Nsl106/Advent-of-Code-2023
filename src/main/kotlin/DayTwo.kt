@@ -1,6 +1,5 @@
 object DayTwo: BaseDay(2) {
-
-    override fun printPartOne(input: List<String>) {
+    override fun printPartOne() {
         val maximums = mapOf("red" to 12, "green" to 13, "blue" to 14)
         var sum = 0
         line@ for (line in input) {
@@ -19,7 +18,7 @@ object DayTwo: BaseDay(2) {
         println(sum)
     }
 
-    override fun printPartTwo(input: List<String>) {
+    override fun printPartTwo() {
         var sum = 0
         for (line in input) {
             val data = line.substringAfter(": ").replace(";", ",")
