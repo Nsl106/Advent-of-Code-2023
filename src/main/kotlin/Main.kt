@@ -5,8 +5,6 @@ fun main() {
     println("answers for day $currentDay:")
 
     val day = days.first { it.day == currentDay }
-    print("part one: ")
-    day.printPartOne()
-    print("part two: ")
-    day.printPartTwo()
+    println("part one: ${day.partOne()}")
+    println("part two: ${day.partTwo()}")
 }

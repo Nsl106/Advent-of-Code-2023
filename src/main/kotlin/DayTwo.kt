@@ -1,5 +1,5 @@
-object DayTwo: BaseDay(2) {
-    override fun printPartOne() {
+object DayTwo: BaseDay<Int>(2) {
+    override fun partOne(): Int {
         val maximums = mapOf("red" to 12, "green" to 13, "blue" to 14)
         var sum = 0
         line@ for (line in input) {
@@ -15,10 +15,10 @@ object DayTwo: BaseDay(2) {
             }
             sum += id
         }
-        println(sum)
+        return sum
     }
 
-    override fun printPartTwo() {
+    override fun partTwo(): Int {
         var sum = 0
         for (line in input) {
             val data = line.substringAfter(": ").replace(";", ",")
@@ -36,6 +36,6 @@ object DayTwo: BaseDay(2) {
             maximums.values.forEach { power *= it }
             sum += power
         }
-        println(sum)
+        return sum
     }
 }
