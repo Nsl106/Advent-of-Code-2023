@@ -1,4 +1,4 @@
-object DayTwo: BaseDay<Int>(2) {
+object Day02: BaseDay<Int>(2) {
     override fun partOne(): Int {
         val maximums = mapOf("red" to 12, "green" to 13, "blue" to 14)
         var sum = 0

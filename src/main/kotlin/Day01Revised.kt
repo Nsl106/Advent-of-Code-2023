@@ -1,4 +1,4 @@
-object DayOneRevised: BaseDay<Int>(1) {
+object Day01Revised: BaseDay<Int>(1) {
     override fun partOne() = input.sumOf { line -> "${line.first { it.isDigit() }}${line.last { it.isDigit() }}".toInt() }
 
     override fun partTwo(): Int {
