@@ -1,6 +1,6 @@
 fun main() {
-    val currentDay = 3
-    val days = listOf(Day01, Day02, Day03)
+    val currentDay = 4
+    val days = listOf(Day01, Day02, Day03, Day04)
     val revisedDays = listOf(Day01Revised)
 
     println("answers for day $currentDay:")

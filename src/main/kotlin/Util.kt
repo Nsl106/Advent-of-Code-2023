@@ -6,7 +6,7 @@ fun <T> List<T>.getRange(start: Int, end: Int): List<T> {
     return list.filterNotNull()
 }
 
-
+fun String.getFirstInt() = substring(indexOfFirst { it.isDigit() }).takeWhile { it.isDigit() }.toInt()
 
 abstract class BaseDay<T>(val day: Int) {
     protected open val input by lazy { File(javaClass.getResource("inputs/$day")?.toURI() ?: error("Missing input for day $day")).readLines() }
