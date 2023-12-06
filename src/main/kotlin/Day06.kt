@@ -1,12 +1,7 @@
 object Day06: BaseDay<Int>(6) {
     override fun partOne(): Int {
         val (times, records) = input.map { it.substringAfter(":").trim().split(Regex(" +")).map(String::toLong) }
-
-        val allCounts = mutableListOf<Int>()
-
-        for (i in times.indices) allCounts.add(calculate(times[i], records[i]))
-
-        return allCounts.reduce(Int::times)
+        return List(times.size) { calculate(times[it], records[it]) }.reduce(Int::times)
     }
 
     override fun partTwo() = input.map { it.filter(Char::isDigit).toLong() }.let { calculate(it[0], it[1]) }
