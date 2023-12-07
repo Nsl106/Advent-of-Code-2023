@@ -1,5 +1,9 @@
+typealias MapRange = List<Long>
+
 object Day05: BaseDay<Long>(5) {
-    private fun getMaps(): MutableList<List<String>> {
+
+
+    private val maps by lazy {
         val maps = mutableListOf<List<String>>()
 
         var tmpInput = input
@@ -9,19 +13,50 @@ object Day05: BaseDay<Long>(5) {
             maps.add(tmpInput.takeWhile { it.isNotBlank() })
         }
 
-        return maps
+        maps
     }
 
-    private fun Long.getMappedValue(range: String): Long? {
-        val values = range.split(" ").map { i -> i.toLong() }
-        val sourceRange = LongRange(values[1], values[1] + values[2] - 1)
+    // Part one specific
+
+    private fun Long.getValueFromMap(mapRange: MapRange): Long? {
+        val (destinationStart, sourceStart, length) = mapRange
+
+        val sourceRange = LongRange(sourceStart, sourceStart + length - 1)
         if (!sourceRange.contains(this)) return null
-        return values[0] + (this - values[1])
+        return destinationStart + (this - sourceStart)
     }
 
-    private fun LongRange.move(translation: Long) = LongRange(start + translation, last + translation)
+    override fun partOne(): Long {
+        val seeds = input[0].substringAfter(": ").split(" ").map(String::toLong)
 
-    private fun LongRange.checkRange(destinationStart: Long, sourceStart: Long, length: Long): RangeOutput {
+        var lowestLocation = Long.MAX_VALUE
+
+        seeds.forEach { seed ->
+            var currentID = seed
+
+            maps.forEach { map ->
+                for (range in map) {
+                    val value = currentID.getValueFromMap(range.split(" ").map(String::toLong))
+                    if (value != null) {
+                        currentID = value
+                        break
+                    }
+                }
+            }
+
+            lowestLocation = minOf(lowestLocation, currentID)
+        }
+        return lowestLocation
+    }
+
+    // Part two specific
+
+    data class RangeOutput(val matchedRanges: LongRange?, val missedRanges: List<LongRange>)
+
+    private fun LongRange.checkAgainstRange(mapRange: MapRange): RangeOutput {
+        val (destinationStart, sourceStart, length) = mapRange
+
+        fun LongRange.move(translation: Long) = LongRange(start + translation, last + translation)
         val sourceEnd = sourceStart + length
         val movement = destinationStart - sourceStart
 
@@ -60,46 +95,24 @@ object Day05: BaseDay<Long>(5) {
         throw Exception("spooky stuff happened")
     }
 
-    private fun recurse(initial: LongRange, ranges: List<List<Long>>): List<LongRange> {
+    private fun processMap(initial: LongRange, map: List<MapRange>): List<LongRange> {
         val processedValues = mutableListOf<LongRange>()
 
-        val range = ranges.first()
-        val value = initial.checkRange(range[0], range[1], range[2])
-        if (value.movedRange != null) {
-            processedValues.add(value.movedRange)
-        }
-        value.missedRanges.forEach {
-            if (ranges.size > 1) {
-                processedValues.addAll(recurse(it, ranges.drop(1)))
+        val range = map.first()
+        val output = initial.checkAgainstRange(range)
+
+        // save the parts of the range that overlap the map
+        if (output.matchedRanges != null) processedValues.add(output.matchedRanges)
+
+        // recursively check each of the extra bits against the rest of the map
+        output.missedRanges.forEach {
+            if (map.size > 1) {
+                processedValues.addAll(processMap(it, map.drop(1)))
             } else {
                 processedValues.add(it)
             }
         }
         return processedValues
-    }
-
-    data class RangeOutput(val movedRange: LongRange?, val missedRanges: List<LongRange>)
-
-    override fun partOne(): Long {
-        val seeds = input[0].substringAfter(": ").split(" ").map { it.toLong() }
-        var lowestLocation = Long.MAX_VALUE
-
-        seeds.forEach { seed ->
-            var currentID = seed
-
-            getMaps().forEach { map ->
-                for (range in map) {
-                    val value = currentID.getMappedValue(range)
-                    if (value != null) {
-                        currentID = value
-                        break
-                    }
-                }
-            }
-
-            lowestLocation = minOf(lowestLocation, currentID)
-        }
-        return lowestLocation
     }
 
     override fun partTwo(): Long {
@@ -110,14 +123,14 @@ object Day05: BaseDay<Long>(5) {
         seedRanges.forEach { seedRange ->
             var currentSeedRanges = listOf(seedRange)
 
-            getMaps().forEach { map ->
+            maps.forEach { map ->
                 val ranges = map.map { it.split(" ").map(String::toLong) }
 
                 currentSeedRanges = currentSeedRanges.flatMap {
-                    recurse(it, ranges)
+                    processMap(it, ranges)
                 }
             }
-            
+
             locationRanges.addAll(currentSeedRanges)
         }
 
