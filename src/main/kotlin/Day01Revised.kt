@@ -1,5 +1,5 @@
 object Day01Revised: BaseDay<Int>(1) {
-    override fun partOne() = input.map { it.filter(Char::isDigit) }.sumOf { "${it.first()}${it.last()}".toInt() }
+    override fun partOne()=input.sumOf{it.filter(Char::isDigit).let{""+it[0]+it.last()}.toInt()}
 
     override fun partTwo(): Int {
         val digitsMap = listOf("one", "two", "three", "four", "five", "six", "seven", "eight", "nine").mapIndexed { index, it -> it to index + 1 }
