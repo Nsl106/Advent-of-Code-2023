@@ -1,6 +1,6 @@
 import kotlin.math.abs
 
-object Day11: BaseDay<Long>(11) {
+object Day11: BaseDay(11) {
     private val galaxies = mutableListOf<Coordinate>()
 
     private val expandedRowIndices = mutableListOf<Int>()

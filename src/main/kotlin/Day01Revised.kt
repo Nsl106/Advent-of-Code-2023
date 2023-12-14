@@ -1,4 +1,4 @@
-object Day01Revised: BaseDay<Int>(1) {
+object Day01Revised: BaseDay(1) {
     override fun partOne()=input.sumOf{it.filter(Char::isDigit).let{""+it[0]+it.last()}.toInt()}
 
     override fun partTwo(): Int {

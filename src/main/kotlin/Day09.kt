@@ -1,4 +1,4 @@
-object Day09: BaseDay<Int>(9) {
+object Day09: BaseDay(9) {
 
     private fun extrapolate(input: List<List<Int>>): List<List<Int>> {
         val nums = input.first()

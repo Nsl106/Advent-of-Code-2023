@@ -1,8 +1,6 @@
 typealias MapRange = List<Long>
 
-object Day05: BaseDay<Long>(5) {
-
-
+object Day05: BaseDay(5) {
     private val maps by lazy {
         val maps = mutableListOf<List<String>>()
 

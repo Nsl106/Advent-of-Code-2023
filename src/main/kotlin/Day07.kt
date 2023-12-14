@@ -1,4 +1,4 @@
-object Day07: BaseDay<Int>(7) {
+object Day07: BaseDay(7) {
     override fun partOne(): Int {
         val betMap = input.associate { it.substringBefore(" ") to it.substringAfter(" ") }.mapValues { it.value.toInt() }
         val hands = betMap.keys

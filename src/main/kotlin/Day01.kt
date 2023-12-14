@@ -1,4 +1,4 @@
-object Day01: BaseDay<Int>(1) {
+object Day01: BaseDay(1) {
     override fun partOne(): Int {
         var sum = 0
         input.forEach { line ->

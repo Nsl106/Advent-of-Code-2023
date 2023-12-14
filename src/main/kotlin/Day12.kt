@@ -1,5 +1,4 @@
-object Day12: BaseDay<Long>(12) {
-
+object Day12: BaseDay(12) {
     // https://github.com/eagely/adventofcode/blob/main/src/main/kotlin/solutions/y2023/Day12.kt
     private val cache = hashMapOf<Pair<String, List<Int>>, Long>()
     private fun recurse(springs: String, groups: List<Int>): Long {

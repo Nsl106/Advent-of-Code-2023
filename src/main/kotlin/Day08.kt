@@ -1,4 +1,4 @@
-object Day08: BaseDay<Long>(8) {
+object Day08: BaseDay(8) {
     private val directions = input.first()
 
     private val nodes = input.drop(2).associate {
