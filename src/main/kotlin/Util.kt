@@ -48,6 +48,7 @@ fun Int.isEven() = this % 2 == 0
 fun Int.isOdd() = this % 2 != 0
 
 fun println(vararg values: Any?) = kotlin.io.println(values.joinToString())
+
 data class Coordinate(val x: Int, val y: Int)
 
 abstract class BaseDay(val day: Int) {
