@@ -3,10 +3,10 @@ import Grid.Direction
 object Day16: BaseDay(16) {
     private val grid = gridOf(input.map { it.toList() })
 
-    private val activated = mutableSetOf<Grid.Position>()
+    private val activated = mutableSetOf<Grid.BasePosition>()
 
     // Don't need to follow a path twice
-    private val alreadyChecked = mutableSetOf<Pair<Grid.Position, Direction>>()
+    private val alreadyChecked = mutableSetOf<Pair<Grid.BasePosition, Direction>>()
 
     // Save splits and check them later to prevent stack overflow
     private val splitsToCheck = mutableSetOf<Pair<Grid.GridIndex<Char>, Direction>>()
@@ -15,7 +15,7 @@ object Day16: BaseDay(16) {
         val pair = start.position to direction
         if (alreadyChecked.contains(pair)) return
         alreadyChecked.add(pair)
-        val char = start.item
+        val char = start.value
 
         activated.add(start.position)
         when (char) {
@@ -76,7 +76,7 @@ object Day16: BaseDay(16) {
         return max
     }
 
-    private fun activatedTilesFrom(coordinate: Grid.Position, direction: Direction): Int {
+    private fun activatedTilesFrom(coordinate: Grid.BasePosition, direction: Direction): Int {
         activated.clear()
         alreadyChecked.clear()
         splitsToCheck.clear()
