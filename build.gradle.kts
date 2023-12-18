@@ -7,6 +7,10 @@ repositories {
     mavenCentral()
 }
 
+dependencies {
+    implementation(kotlin("reflect"))
+}
+
 kotlin {
     jvmToolchain(17)
 }

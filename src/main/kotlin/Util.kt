@@ -50,9 +50,3 @@ fun Int.isOdd() = this % 2 != 0
 fun println(vararg values: Any?) = kotlin.io.println(values.joinToString())
 
 data class Coordinate(val x: Int, val y: Int)
-
-abstract class BaseDay(val day: Int) {
-    protected open val input by lazy { File(javaClass.getResource("inputs/$day")?.toURI() ?: error("Missing input for day $day")).readLines() }
-    abstract fun partOne(): Any
-    abstract fun partTwo(): Any
-}
