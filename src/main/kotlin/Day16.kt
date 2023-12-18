@@ -69,10 +69,10 @@ object Day16: BaseDay(16) {
 
     override fun partTwo(): Any {
         var max = 0
-        grid.rows.first().forEach { max = maxOf(max, activatedTilesFrom(it.position, Direction.SOUTH)) }
-        grid.rows.last().forEach { max = maxOf(max, activatedTilesFrom(it.position, Direction.NORTH)) }
-        grid.cols.first().forEach { max = maxOf(max, activatedTilesFrom(it.position, Direction.EAST)) }
-        grid.cols.last().forEach { max = maxOf(max, activatedTilesFrom(it.position, Direction.WEST)) }
+        grid.rows.first().values.forEach { max = maxOf(max, activatedTilesFrom(it.position, Direction.SOUTH)) }
+        grid.rows.last().values.forEach { max = maxOf(max, activatedTilesFrom(it.position, Direction.NORTH)) }
+        grid.cols.first().values.forEach { max = maxOf(max, activatedTilesFrom(it.position, Direction.EAST)) }
+        grid.cols.last().values.forEach { max = maxOf(max, activatedTilesFrom(it.position, Direction.WEST)) }
         return max
     }
 

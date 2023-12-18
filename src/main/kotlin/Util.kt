@@ -1,5 +1,3 @@
-import java.io.File
-
 fun <T> List<T>.getRange(start: Int, end: Int): List<T> {
     val list = mutableListOf<T?>()
     (start..end).forEach { list.add(this.getOrNull(it)) }
@@ -17,7 +15,7 @@ fun <T> List<T>.split(predicate: (T) -> Boolean): List<List<T>> {
     val result = mutableListOf<List<T>>()
     do {
         if (currentOffset != nextIndex)
-        result.add(subList(currentOffset, nextIndex))
+            result.add(subList(currentOffset, nextIndex))
         currentOffset = nextIndex + 1
 
         val relativeIndex = drop(currentOffset).indexOfFirst(predicate)

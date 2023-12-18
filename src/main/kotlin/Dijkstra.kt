@@ -1,3 +1,5 @@
+import java.util.*
+
 // https://github.com/Mistborn94/advent-of-code-2023/blob/master/src/main/kotlin/helper/graph/AStarSearch.kt
 fun <T> runDijkstra(
     getNeighbors: (T) -> Iterable<T>,
@@ -5,16 +7,15 @@ fun <T> runDijkstra(
     start: T,
     atEnd: (T) -> Boolean,
 ): SearchResult<T> {
-    val toVisit = mutableSetOf(ItemCost(start, 0))
+    val toVisit = PriorityQueue<ItemCost<T>>(compareBy { it.cost })
+    toVisit.add(ItemCost(start, 0))
     var endVertex: T? = null
     val seenPoints = mutableMapOf<T, PathSegment<T>>()
 
     while (endVertex == null) {
         if (toVisit.isEmpty()) break
 
-        val shortestTraveledItem = toVisit.minBy { it.cost }
-        toVisit.remove(shortestTraveledItem)
-        val (currentItem, currentDistance) = shortestTraveledItem
+        val (currentItem, currentDistance) = toVisit.poll()
 
         if (atEnd(currentItem)) endVertex = currentItem
 

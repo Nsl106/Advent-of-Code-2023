@@ -1,4 +1,4 @@
-class Grid<T>(lists: List<List<T>> = emptyList()) {
+class Grid<T> {
     /*
      * /   N   \
      * | W * E |
@@ -22,60 +22,57 @@ class Grid<T>(lists: List<List<T>> = emptyList()) {
         }
     }
 
-    private val inner = lists.map { it.toMutableList() }.toMutableList()
+//    val inner = lists.map { it.toMutableList() }.toMutableList()
 
-    operator fun get(row: Int, col: Int) = GridIndex(Position(row, col), inner[row][col], this)
-    operator fun get(position: BasePosition) = GridIndex(position, inner[position.row][position.col], this)
+    operator fun get(row: Int, col: Int) = get(Position(row, col))//GridIndex(Position(row, col), inner[row][col], this)
+    operator fun get(position: BasePosition) = nodes[Position(position.row, position.col)]!!//GridIndex(position, inner[position.row][position.col], this)
 
-    val rowCount get() = inner.size
-    val colCount get() = inner[0].size
-    val rowIndices get() = 0..<inner.size
-    val colIndices get() = 0..<inner[0].size
+    val nodes = mutableMapOf<BasePosition, GridIndex<T>>()
+
+    var rowIndices = 0..0
+        private set
+    var colIndices = 0..0
+        private set
+//    val colCount get() = inner[0].size
+//    val rowCount get() = rowIndices.
 
     fun contains(position: BasePosition) = position.col in colIndices && position.row in rowIndices
 
-    val all: List<GridIndex<T>>
-        get() = rows.flatten()
+    val all get() = nodes.values.toList()
 
-    val allPositions: List<BasePosition>
-        get() = rows.flatten().map { it.position }
-
-    val rows: List<List<GridIndex<T>>>
-        get() {
-            val rows = MutableList(rowCount) { mutableListOf<GridIndex<T>>() }
-            for (rowNumber in 0..<rowCount) {
-                for (colNumber in 0..<colCount) {
-                    rows[rowNumber].add(colNumber, get(rowNumber, colNumber))
-                }
-            }
-            return rows
-        }
-    val cols: List<List<GridIndex<T>>>
-        get() {
-            val cols = MutableList(colCount) { mutableListOf<GridIndex<T>>() }
-            for (rowNumber in 0..<rowCount) {
-                for (colNumber in 0..<colCount) {
-                    cols[colNumber].add(rowNumber, get(rowNumber, colNumber))
-                }
-            }
-            return cols
-        }
-
-    fun getOrNull(row: Int, col: Int): GridIndex<T>? {
-        return GridIndex(Position(row, col), inner.getOrNull(row)?.getOrNull(col) ?: return null, this)
+    fun getRow(number: Int): Map<Int, GridIndex<T>> {
+        return nodes.filter { it.key.row == number }.map { it.key.col to it.value }.toMap()
     }
 
-    fun getOrNull(position: BasePosition): GridIndex<T>? {
-        return GridIndex(position, inner.getOrNull(position.row)?.getOrNull(position.col) ?: return null, this)
+    fun getCol(number: Int): Map<Int, GridIndex<T>> {
+        return nodes.filter { it.key.col == number }.map { it.key.row to it.value }.toMap()
     }
 
-    operator fun set(position: BasePosition, newValue: T) {
-        inner[position.row][position.col] = newValue
-    }
+    val rows get() = buildList { for (index in rowIndices) add(getRow(index)) }
+    val cols get() = buildList { for (index in colIndices) add(getCol(index)) }
+
+    fun getOrNull(row: Int, col: Int) = nodes[Position(row, col)]
+    fun getOrNull(position: BasePosition) = nodes[position as (Position)]
+
+    operator fun set(position: BasePosition, newValue: T) = set(position.row, position.col, newValue)
 
     operator fun set(row: Int, col: Int, newValue: T) {
-        inner[row][col] = newValue
+        val position = Position(row, col)
+        if (!contains(position)) updateIndicesToContain(position)
+        nodes[position] = GridIndex(position, newValue, this)
     }
+
+    private fun updateIndicesToContain(position: BasePosition) {
+        if (position.row < rowIndices.first) rowIndices = position.row..rowIndices.last
+        else if (position.row > rowIndices.last) rowIndices = rowIndices.first..position.row
+        if (position.col < colIndices.first) colIndices = position.col..colIndices.last
+        else if (position.col > colIndices.last) colIndices = colIndices.first..position.col
+    }
+
+    fun topLeft() = get(rowIndices.first, colIndices.first)
+    fun topRight() = get(rowIndices.first, colIndices.last)
+    fun bottomLeft() = get(rowIndices.last, colIndices.first)
+    fun bottomRight() = get(rowIndices.last, colIndices.last)
 
     class GridIndex<T> internal constructor(val position: BasePosition, val value: T, private val reference: Grid<T>) {
         val north get() = reference.getOrNull(position.move(Direction.NORTH))
@@ -88,6 +85,16 @@ class Grid<T>(lists: List<List<T>> = emptyList()) {
 
     abstract class BasePosition(open val row: Int, open val col: Int) {
         abstract fun move(direction: Direction): BasePosition
+
+        override fun equals(other: Any?): Boolean {
+            return other is BasePosition && this.row == other.row && this.col == other.col
+        }
+
+        override fun hashCode(): Int {
+            var result = row
+            result = 31 * result + col
+            return result
+        }
     }
 
     data class Position(override val row: Int, override val col: Int): BasePosition(row, col) {
@@ -118,5 +125,11 @@ class Grid<T>(lists: List<List<T>> = emptyList()) {
 }
 
 fun <T> gridOf(lists: List<List<T>>): Grid<T> {
-    return Grid(lists)
+    val grid = Grid<T>()
+    for ((rowIndex, row) in lists.withIndex()) {
+        for ((colIndex, item) in row.withIndex()) {
+            grid[rowIndex, colIndex] = item
+        }
+    }
+    return grid
 }

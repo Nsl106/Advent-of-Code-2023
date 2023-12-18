@@ -3,7 +3,7 @@ object Day17: BaseDay(17) {
     data class PathPosition(val position: Grid.FacingPosition, val distanceInDirection: Int)
 
     private val grid = gridOf(input.map { it.toList().map(Char::digitToInt) })
-    private val end = grid.rows.last().last().position
+    private val end = grid.bottomRight().position
 
     private fun getNormalMoves(position: PathPosition) = buildList {
         if (position.distanceInDirection < 3) {
