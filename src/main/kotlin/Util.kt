@@ -1,3 +1,5 @@
+import kotlin.math.abs
+
 fun <T> List<T>.getRange(start: Int, end: Int): List<T> {
     val list = mutableListOf<T?>()
     (start..end).forEach { list.add(this.getOrNull(it)) }
@@ -40,6 +42,18 @@ fun <T> List<List<T>>.toCols(): List<List<T>> {
         cols.add(col)
     }
     return cols
+}
+
+fun polygonArea(points: List<LongPoint>): Long {
+    var area = 0L
+    var previousIndex = points.size - 1
+    for (index in points.indices) {
+        val current = points[index]
+        val previous = points[previousIndex]
+        area += (previous.col + current.col) * (previous.row - current.row)
+        previousIndex = index
+    }
+    return abs(area / 2)
 }
 
 fun Int.isEven() = this % 2 == 0
