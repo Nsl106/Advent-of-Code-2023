@@ -11,7 +11,7 @@ object Day18: BaseDay(18) {
                 'L' -> Direction.WEST
                 else -> throw Exception("")
             }
-            val steps = it.getFirstInt().toLong()
+            val steps = it.firstInt().toLong()
             Instruction(direction, steps)
         }
         return solve(instructions)

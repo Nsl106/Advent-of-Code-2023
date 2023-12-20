@@ -6,7 +6,10 @@ fun <T> List<T>.getRange(start: Int, end: Int): List<T> {
     return list.filterNotNull()
 }
 
-fun String.getFirstInt() = substring(indexOfFirst { it.isDigit() }).takeWhile { it.isDigit() }.toInt()
+fun String.firstInt() = substring(indexOfFirst { it.isDigit() }).takeWhile { it.isDigit() }.toInt()
+fun String.firstWord() = substring(indexOfFirst { it.isLetter() }).takeWhile { it.isLetter() }
+
+fun <T> MutableList<T>.pop() = first().also { removeFirst() }
 
 fun <T> List<T>.split(predicate: (T) -> Boolean): List<List<T>> {
     var currentOffset = 0
@@ -54,6 +57,21 @@ fun polygonArea(points: List<LongPoint>): Long {
         previousIndex = index
     }
     return abs(area / 2)
+}
+
+fun gcd(a: Long, b: Long): Long {
+    var a = a
+    var b = b
+    while (b > 0) {
+        val temp = b
+        b = a % b
+        a = temp
+    }
+    return a
+}
+
+fun lcm(a: Long, b: Long): Long {
+    return a * (b / gcd(a, b))
 }
 
 fun Int.isEven() = this % 2 == 0

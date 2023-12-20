@@ -1,5 +1,5 @@
 fun main() {
-    val currentDay = "19".toRegex()
+    val currentDay = "20".toRegex()
 
     val allDays = BaseDay::class.sealedSubclasses
     val day = allDays.first { currentDay.containsMatchIn(it.simpleName!!) }.objectInstance!!

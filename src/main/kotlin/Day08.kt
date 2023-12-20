@@ -34,22 +34,4 @@ object Day08: BaseDay(8) {
 
         return cycleLengths.reduce(::lcm)
     }
-
-
-    // these two are stolen from the internet, greatest common denominator and lowest common multiple
-
-    private fun gcd(a: Long, b: Long): Long {
-        var a = a
-        var b = b
-        while (b > 0) {
-            val temp = b
-            b = a % b
-            a = temp
-        }
-        return a
-    }
-
-    private fun lcm(a: Long, b: Long): Long {
-        return a * (b / gcd(a, b))
-    }
 }

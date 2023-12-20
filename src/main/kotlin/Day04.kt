@@ -10,7 +10,7 @@ object Day04: BaseDay(4) {
     }
 
     private fun getTotalNewCards(line: String): Int {
-        val cardID = line.getFirstInt()
+        val cardID = line.firstInt()
         val (winningNumbers, ourNumbers) = line.substringAfter(":").split("|").map { it.split(" ").filter(String::isNotBlank) }
 
         val matches = ourNumbers.filter { it in winningNumbers }

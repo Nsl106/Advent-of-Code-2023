@@ -22,7 +22,7 @@ object Day19: BaseDay(19) {
 
     init {
         val (unparsedWorkflows, unparsedItems) = input.split { it.isEmpty() }
-        items = unparsedItems.map { item -> item.split(",").map(String::getFirstInt).let { Item(it[0], it[1], it[2], it[3]) } }
+        items = unparsedItems.map { item -> item.split(",").map(String::firstInt).let { Item(it[0], it[1], it[2], it[3]) } }
         workflows = mutableMapOf()
 
         unparsedWorkflows.forEach { ln ->
@@ -32,7 +32,7 @@ object Day19: BaseDay(19) {
             val rules = all.dropLast(1).map { step ->
                 val type = typeMap.getValue(step.first(Char::isLetter))
                 val next = step.substringAfter(":")
-                val value = step.getFirstInt()
+                val value = step.firstInt()
                 val operatorIsGreater = step.contains('>')
                 Rule(type, next, value, operatorIsGreater)
             }
