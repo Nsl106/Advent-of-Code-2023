@@ -5,6 +5,6 @@ fun main() {
     val day = allDays.first { currentDay.containsMatchIn(it.simpleName!!) }.objectInstance!!
 
     println("answers for day $currentDay:")
-    println("part one: initial answer: ${day.partOne()}")
-    println("part two: initial answer: ${day.partTwo()}")
+    println("part one: ${day.partOne()}")
+    println("part two: ${day.partTwo()}")
 }
