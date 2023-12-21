@@ -1,4 +1,4 @@
-object Day13: BaseDay(13) {
+data object Day13: Day() {
     private val puzzles get() = input.split { it.isEmpty() }.map { it.map(String::toList) }
 
     private fun getMirrorPos(values: List<List<Char>>, equivalent: (List<Char>, List<Char>) -> Boolean, isValid: (Int) -> Boolean): Int {

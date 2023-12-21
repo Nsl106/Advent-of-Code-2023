@@ -1,6 +1,6 @@
 import kotlin.math.pow
 
-object Day04: BaseDay(4) {
+data object Day04: Day() {
     override fun partOne(): Int {
         return input.sumOf { line ->
             val (winningNumbers, ourNumbers) = line.substringAfter(":").split("|").map { it.split(" ").filter(String::isNotBlank) }

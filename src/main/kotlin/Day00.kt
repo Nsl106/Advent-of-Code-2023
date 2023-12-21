@@ -1,4 +1,4 @@
-object Day00: BaseDay(0) {
+data object Day00: Day() {
     override fun partOne(): Any {
 
         return 0

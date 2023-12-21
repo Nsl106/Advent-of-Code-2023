@@ -1,4 +1,4 @@
-object Day19: BaseDay(19) {
+data object Day19: Day() {
     data class Item(val x: Int, val m: Int, val a: Int, val s: Int) {
         fun getByType(type: ValueType) = when (type) {
             ValueType.X -> x

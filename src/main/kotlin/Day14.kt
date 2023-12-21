@@ -1,4 +1,4 @@
-object Day14: BaseDay(14) {
+data object Day14: Day() {
     enum class ShiftDirection {
         NORTH, WEST, SOUTH, EAST
     }

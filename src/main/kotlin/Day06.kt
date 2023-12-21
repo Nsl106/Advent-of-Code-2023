@@ -2,7 +2,7 @@ import kotlin.math.ceil
 import kotlin.math.floor
 import kotlin.math.sqrt
 
-object Day06: BaseDay(6) {
+data object Day06: Day() {
     override fun partOne(): Int {
         val (times, records) = input.map { it.substringAfter(":").trim().split(Regex(" +")).map(String::toDouble) }
         return List(times.size) { calculate(times[it], records[it]) }.reduce(Int::times).toInt()

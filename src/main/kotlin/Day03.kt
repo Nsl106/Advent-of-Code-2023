@@ -1,7 +1,7 @@
 import kotlin.math.max
 import kotlin.math.min
 
-object Day03: BaseDay(3) {
+data object Day03: Day() {
     override fun partOne(): Int {
         fun Char.isSymbol() = !this.isDigit() && this != '.'
         fun String.symbolInRange(start: Int, end: Int) = subSequence(max(start, 0), min(end, length)).any { it.isSymbol() }

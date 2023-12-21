@@ -1,4 +1,4 @@
-object Day20: BaseDay(20) {
+data object Day20: Day() {
     enum class SignalType { HIGH, LOW }
 
     val operationQueue = mutableListOf<Pair<() -> SignalType, Module>>()

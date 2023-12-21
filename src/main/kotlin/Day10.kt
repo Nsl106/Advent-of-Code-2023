@@ -1,4 +1,4 @@
-object Day10: BaseDay(10) {
+data object Day10: Day() {
     private val moves = mapOf(
         '|' to (Coordinate(0, 1) to Coordinate(0, -1)),
         '-' to (Coordinate(1, 0) to Coordinate(-1, 0)),

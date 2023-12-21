@@ -1,4 +1,4 @@
-object Day15: BaseDay(15) {
+data object Day15: Day() {
     private fun String.HASH(): Int {
         var currentValue = 0
         forEach { char ->

@@ -1,5 +1,5 @@
 // https://github.com/Mistborn94/advent-of-code-2023/blob/master/src/main/kotlin/day17/Day17.kt
-object Day17: BaseDay(17) {
+data object Day17: Day() {
     data class PathPosition(val position: FacingPosition, val distanceInDirection: Int)
 
     private val grid = gridOf(input.map { it.toList().map(Char::digitToInt) })

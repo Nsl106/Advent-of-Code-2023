@@ -1,4 +1,4 @@
-object Day18: BaseDay(18) {
+data object Day18: Day() {
     val grid = Grid<Char>()
 
     override fun partOne(): Any {

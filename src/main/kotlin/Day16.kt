@@ -1,4 +1,4 @@
-object Day16: BaseDay(16) {
+data object Day16: Day() {
     private val grid = gridOf(input.map { it.toList() })
 
     private val activated = mutableSetOf<BasePosition>()
