@@ -6,3 +6,9 @@ sealed class Day {
     abstract fun partOne(): Any
     abstract fun partTwo(): Any
 }
+
+fun getDayByInt(day: Int): Day {
+    val dayRegex = day.toString().padStart(2, '0').toRegex()
+    val allDays = Day::class.sealedSubclasses
+    return allDays.first { dayRegex.containsMatchIn(it.simpleName!!) }.objectInstance!!
+}

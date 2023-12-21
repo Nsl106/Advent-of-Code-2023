@@ -1,11 +1,7 @@
 fun main() {
     val currentDay = 20
 
-    val dayRegex = currentDay.toString().padStart(2, '0').toRegex()
-    val allDays = Day::class.sealedSubclasses
-    val day = allDays.first { dayRegex.containsMatchIn(it.simpleName!!) }.objectInstance!!
-
-    printDay(day)
+    printDay(getDayByInt(currentDay))
 }
 
 fun printDay(day: Day) {
@@ -13,7 +9,7 @@ fun printDay(day: Day) {
     val partTwo = "part two: ${day.partTwo()}"
 
     val maxWidth = maxOf(partOne.length, partTwo.length)
-    val widthHalved = (maxWidth / 2) - 2
+    val widthHalved = (((maxWidth - day.toString().length) + 1) / 2)
     val header = "+" + "-".repeat(widthHalved) + " $day " + "-".repeat(widthHalved) + "+"
 
     println(header)
