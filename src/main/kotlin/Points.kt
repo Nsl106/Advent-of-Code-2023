@@ -1,3 +1,5 @@
+import kotlin.math.abs
+
 abstract class BasePosition(open val row: Int, open val col: Int) {
     abstract fun move(direction: Direction): BasePosition
     abstract fun moveSteps(direction: Direction, steps: Int): BasePosition
@@ -12,6 +14,8 @@ abstract class BasePosition(open val row: Int, open val col: Int) {
         return result
     }
 }
+
+fun manhattenDistance(a: BasePosition, b: BasePosition) = abs(a.row - b.row) + abs(a.col - b.col)
 
 data class Position(override val row: Int, override val col: Int): BasePosition(row, col) {
     override fun move(direction: Direction) = moveSteps(direction, 1)

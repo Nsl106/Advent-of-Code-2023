@@ -9,6 +9,9 @@ fun <T> List<T>.getRange(start: Int, end: Int): List<T> {
 fun String.firstInt() = substring(indexOfFirst { it.isDigit() }).takeWhile { it.isDigit() }.toInt()
 fun String.firstWord() = substring(indexOfFirst { it.isLetter() }).takeWhile { it.isLetter() }
 
+fun Int.squared() = this * this
+fun Long.squared() = this * this
+
 fun <T> MutableList<T>.pop() = first().also { removeFirst() }
 
 fun <T> List<T>.split(predicate: (T) -> Boolean): List<List<T>> {
@@ -76,6 +79,9 @@ fun lcm(a: Long, b: Long): Long {
 
 fun Int.isEven() = this % 2 == 0
 fun Int.isOdd() = this % 2 != 0
+
+fun Long.isEven() = this % 2 == 0L
+fun Long.isOdd() = this % 2 != 0L
 
 fun println(vararg values: Any?) = kotlin.io.println(values.joinToString())
 

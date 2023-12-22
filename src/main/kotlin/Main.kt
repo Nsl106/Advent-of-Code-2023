@@ -1,5 +1,5 @@
 fun main() {
-    val currentDay = 20
+    val currentDay = 21
 
     printDay(getDayByInt(currentDay))
 }
